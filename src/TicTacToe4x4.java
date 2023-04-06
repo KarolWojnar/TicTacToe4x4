@@ -15,7 +15,7 @@ public class TicTacToe4x4 {
     public static void main(String[] args) {
         board = createBoard();
         printBoard(board);
-        System.out.println("Kto ma zacząć?");
+        System.out.println("Kto ma zacząć?" );
         whoStart = scanner.next();
         while (!isGameOver(board)) {
             if (whoStart.equals("gracz")) {
