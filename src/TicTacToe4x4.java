@@ -6,7 +6,7 @@ public class TicTacToe4x4 {
 
     public static final char EMPTY_CELL = '-';
 
-    public static final char COMPUTER_SYMBOL = 'X';
+    public static final char COMPUTER_SYMBOL = '◾';
     public static String whoStart;
     public static String winner;
     static Scanner scanner = new Scanner(System.in);
@@ -15,7 +15,7 @@ public class TicTacToe4x4 {
     public static void main(String[] args) {
         board = createBoard();
         printBoard(board);
-        System.out.println("Kto ma zacząć?" );
+        System.out.println("Kto ma zacząć?");
         whoStart = scanner.next();
         while (!isGameOver(board)) {
             if (whoStart.equals("gracz")) {
@@ -41,8 +41,8 @@ public class TicTacToe4x4 {
                 board[i][j] = EMPTY_CELL;
             }
         }
-        board[1][0] = 'X';
-        board[2][3] = 'X';
+        board[0][0] = '◾';
+        board[0][3] = '◾';
         return board;
     }
 
