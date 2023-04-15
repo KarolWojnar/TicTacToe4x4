@@ -129,10 +129,6 @@ public class TicTacToe4x4 {
             return depth;
         }
         int worst = Integer.MAX_VALUE;
-
-
-
-
         int best = Integer.MIN_VALUE;
         for(int i = 0; i < BOARD_SIZE; i++)
         {
