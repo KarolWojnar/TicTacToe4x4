@@ -6,18 +6,20 @@ public class TicTacToe4x4 {
 
     private static final char EMPTY_CELL = '-';
 
-    private static final char COMPUTER_SYMBOL = '◾';
+    private static final char SYMBOL = '◾';
     private static String winner;
     private static final Scanner scanner = new Scanner(System.in);
+    static boolean playerStart = false;
 
     public static void main(String[] args) {
         char[][] board = createBoard();
         printBoard(board);
         System.out.println("Kto ma zacząć?");
         String whoStart = scanner.next();
+        playerStart = whoStart.equals("gracz");
         while (!isGameOver(board)) {
             if (whoStart.equals("gracz")) {
-                makeMove(board, ' ');
+                makeMove(board, '-');
                 printBoard(board);
             }
 
@@ -25,7 +27,7 @@ public class TicTacToe4x4 {
                 break;
             }
 
-            makeMove(board, COMPUTER_SYMBOL);
+            makeMove(board, SYMBOL);
             whoStart = "gracz";
             printBoard(board);
         }
@@ -39,8 +41,8 @@ public class TicTacToe4x4 {
                 board[i][j] = EMPTY_CELL;
             }
         }
-        board[0][0] = '◾';
-        board[0][3] = '◾';
+        board[3][0] = '◾';
+        board[3][3] = '◾';
         return board;
     }
 
@@ -56,7 +58,7 @@ public class TicTacToe4x4 {
     }
 
     private static boolean isGameOver(char[][] board) {
-        return (isBoardFull(board) || getWinner(board) != 0);
+        return (isBoardFull(board) || getWinner(board) == 1);
 
     }
 
@@ -81,7 +83,7 @@ public class TicTacToe4x4 {
     }
 
     private static void makeMove(char[][] board, char symbol) {
-        if (symbol == COMPUTER_SYMBOL) {
+        if (symbol == SYMBOL) {
             winner = "gracz!";
             int[] move = getBestMove(board);
             board[move[0]][move[1]] = symbol;
@@ -92,7 +94,7 @@ public class TicTacToe4x4 {
                 int row = scanner.nextInt() - 1;
                 int col = scanner.nextInt() - 1;
                 if (row >= 0 && row < BOARD_SIZE && col >= 0 && col < BOARD_SIZE && board[row][col] == EMPTY_CELL) {
-                    board[row][col] = COMPUTER_SYMBOL;
+                    board[row][col] = SYMBOL;
                     winner = "Komputer!";
                     break;
                 } else {
@@ -108,8 +110,8 @@ public class TicTacToe4x4 {
         for (int i = 0; i < BOARD_SIZE; i++) {
             for (int j = 0; j < BOARD_SIZE; j++) {
                 if (board[i][j] == EMPTY_CELL) {
-                    board[i][j] = COMPUTER_SYMBOL;
-                    int score = miniMax(true, board);
+                    board[i][j] = SYMBOL;
+                    int score = miniMax(!playerStart, board);
                     board[i][j] = EMPTY_CELL;
                     if (score > bestScore) {
                         bestScore = score;
@@ -126,7 +128,6 @@ public class TicTacToe4x4 {
         if (getWinner(board) == 1) {
             return depth;
         }
-        depth++;
         int worst = Integer.MAX_VALUE;
         int best = Integer.MIN_VALUE;
         for(int i = 0; i < BOARD_SIZE; i++)
@@ -134,7 +135,8 @@ public class TicTacToe4x4 {
             for(int j = 0; j < BOARD_SIZE; j++)
             {
                 if(board[i][j] == EMPTY_CELL) {
-                    board[i][j] = COMPUTER_SYMBOL;
+                    board[i][j] = SYMBOL;
+                    depth++;
                     int score = miniMax(!maksymalizacja, board);
                     depth = 0;
                     worst = Math.min(worst, score);
