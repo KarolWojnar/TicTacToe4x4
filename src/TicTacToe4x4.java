@@ -37,9 +37,7 @@ public class TicTacToe4x4 {
     private static char[][] createBoard() {
         char[][] board = new char[BOARD_SIZE][BOARD_SIZE];
         for (int i = 0; i < BOARD_SIZE; i++) {
-            for (int j = 0; j < BOARD_SIZE; j++) {
-                board[i][j] = EMPTY_CELL;
-            }
+            Arrays.fill(board[i], EMPTY_CELL);
         }
         board[3][0] = '◾';
         board[3][3] = '◾';
@@ -126,8 +124,8 @@ public class TicTacToe4x4 {
     private static int depth = 0;
     public static int miniMax(boolean maksymalizacja, char[][] board) {
         if (getWinner(board) == 1) {
-            if(winner.equals("komputer")) return depth + 50;
-            else return depth - 50;
+            if(winner.equals("komputer")) return depth + 5;
+            else return depth - 5;
         }
         int worst = Integer.MAX_VALUE;
         int best = Integer.MIN_VALUE;
