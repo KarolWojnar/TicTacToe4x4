@@ -75,11 +75,6 @@ public class TicTacToe4x4 {
     private static int getWinner(char[][] board) {
         for (int i = 0; i < BOARD_SIZE; i++) {
             if (board[i][0] != EMPTY_CELL && board[i][0] == board[i][1] && board[i][1] == board[i][2] && board[i][2] == board[i][3]) return 1;
-            
-            
-            
-            
-            
             if (board[0][i] != EMPTY_CELL && board[0][i] == board[1][i] && board[1][i] == board[2][i] && board[2][i] == board[3][i]) return 1;
         }
         if (board[0][0] != EMPTY_CELL && board[0][0] == board[1][1] && board[1][1] == board[2][2] && board[2][2] == board[3][3]) return 1;
@@ -89,7 +84,7 @@ public class TicTacToe4x4 {
 
     private static void makeMove(char[][] board, char symbol) {
         if (symbol == SYMBOL) {
-            winner = "gracz!";
+            winner = "gracz";
             int[] move = getBestMove(board);
             board[move[0]][move[1]] = symbol;
 
@@ -100,7 +95,7 @@ public class TicTacToe4x4 {
                 int col = scanner.nextInt() - 1;
                 if (row >= 0 && row < BOARD_SIZE && col >= 0 && col < BOARD_SIZE && board[row][col] == EMPTY_CELL) {
                     board[row][col] = SYMBOL;
-                    winner = "Komputer!";
+                    winner = "komputer";
                     break;
                 } else {
                     System.out.println("Niepoprawny ruch. Spróbuj ponownie.");
@@ -131,17 +126,20 @@ public class TicTacToe4x4 {
     private static int depth = 0;
     public static int miniMax(boolean maksymalizacja, char[][] board) {
         if (getWinner(board) == 1) {
-            return depth;
+            if(winner.equals("komputer")) return depth + 50;
+            else return depth - 50;
         }
         int worst = Integer.MAX_VALUE;
         int best = Integer.MIN_VALUE;
+        depth++;
         for(int i = 0; i < BOARD_SIZE; i++)
         {
             for(int j = 0; j < BOARD_SIZE; j++)
             {
                 if(board[i][j] == EMPTY_CELL) {
                     board[i][j] = SYMBOL;
-                    depth++;
+                    if (maksymalizacja) winner = "gracz";
+                    else winner = "komputer";
                     int score = miniMax(!maksymalizacja, board);
                     depth = 0;
                     worst = Math.min(worst, score);
