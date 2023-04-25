@@ -1,50 +1,40 @@
 
     import java.util.*;
 public class TicTacToe4x4 {
-
     private static final int BOARD_SIZE = 4;
-
     private static final char EMPTY_CELL = '-';
-
     private static final char SYMBOL = '◾';
     private static String winner;
     private static final Scanner scanner = new Scanner(System.in);
-    static boolean playerStart = false;
-
+    private static boolean compTime = true;
     public static void main(String[] args) {
         char[][] board = createBoard();
         printBoard(board);
         System.out.println("Kto ma zacząć?");
         String whoStart = scanner.next();
-        playerStart = whoStart.equals("gracz");
         while (!isGameOver(board)) {
             if (whoStart.equals("gracz")) {
                 makeMove(board, '-');
                 printBoard(board);
             }
-
             if (isGameOver(board)) {
                 break;
             }
-
             makeMove(board, SYMBOL);
             whoStart = "gracz";
             printBoard(board);
         }
         System.out.println("Koniec gry! Wygrał " + winner);
     }
-
     private static char[][] createBoard() {
         char[][] board = new char[BOARD_SIZE][BOARD_SIZE];
         for (int i = 0; i < BOARD_SIZE; i++) {
             Arrays.fill(board[i], EMPTY_CELL);
         }
-        board[3][0] = '◾';
-        board[3][3] = '◾';
+        board[0][3] = '◾';
+        board[2][1] = '◾';
         return board;
     }
-
-
     private static void printBoard(char[][] board) {
         System.out.println("-------------");
         for (int i = 0; i < BOARD_SIZE; i++) {
@@ -54,12 +44,7 @@ public class TicTacToe4x4 {
             System.out.println();
         }
     }
-
-    private static boolean isGameOver(char[][] board) {
-        return (isBoardFull(board) || getWinner(board) == 1);
-
-    }
-
+    private static boolean isGameOver(char[][] board) {return (isBoardFull(board) || getWinner(board) == 1);}
     private static boolean isBoardFull(char[][] board) {
         for (int i = 0; i < BOARD_SIZE; i++) {
             for (int j = 0; j < BOARD_SIZE; j++) {
@@ -79,7 +64,6 @@ public class TicTacToe4x4 {
         if (board[0][3] != EMPTY_CELL && board[0][3] == board[1][2] && board[1][2] == board[2][1] && board[2][1] == board[3][0]) return 1;
         return 0;
     }
-
     private static void makeMove(char[][] board, char symbol) {
         if (symbol == SYMBOL) {
             winner = "gracz";
@@ -101,7 +85,6 @@ public class TicTacToe4x4 {
             }
         }
     }
-
     private static int[] getBestMove(char[][] board) {
         int bestScore = Integer.MIN_VALUE;
         int[] bestMove = new int[2];
@@ -109,7 +92,8 @@ public class TicTacToe4x4 {
             for (int j = 0; j < BOARD_SIZE; j++) {
                 if (board[i][j] == EMPTY_CELL) {
                     board[i][j] = SYMBOL;
-                    int score = miniMax(!playerStart, board);
+                    compTime = true;
+                    int score = miniMax(false, board);
                     board[i][j] = EMPTY_CELL;
                     if (score > bestScore) {
                         bestScore = score;
@@ -121,28 +105,25 @@ public class TicTacToe4x4 {
         }
         return bestMove;
     }
-    private static int depth = 0;
     public static int miniMax(boolean maksymalizacja, char[][] board) {
         if (getWinner(board) == 1) {
-            if(winner.equals("komputer")) return depth + 5;
-            else return depth - 5;
+            if(compTime) return -1;
+            return 1;
         }
         int worst = Integer.MAX_VALUE;
         int best = Integer.MIN_VALUE;
-        depth++;
         for(int i = 0; i < BOARD_SIZE; i++)
         {
             for(int j = 0; j < BOARD_SIZE; j++)
             {
                 if(board[i][j] == EMPTY_CELL) {
                     board[i][j] = SYMBOL;
-                    if (maksymalizacja) winner = "gracz";
-                    else winner = "komputer";
+                    compTime = !compTime;
                     int score = miniMax(!maksymalizacja, board);
-                    depth = 0;
-                    worst = Math.min(worst, score);
-                    best = Math.max(best, score);
+                    compTime = true;
                     board[i][j] = EMPTY_CELL;
+                    if (maksymalizacja) best = Math.max(best, score);
+                    else worst = Math.min(worst, score);
                 }
             }
         }
