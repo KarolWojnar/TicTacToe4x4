@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3abdaea6-072c-4e47-a704-79ad1009ceae" name="Changes" comment="ready">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/TicTacToe4x4.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TicTacToe4x4.java" afterDir="false" />
-    </list>
+    <list default="true" id="3abdaea6-072c-4e47-a704-79ad1009ceae" name="Changes" comment="ready2" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -62,7 +59,7 @@
       <workItem from="1682266723058" duration="31000" />
       <workItem from="1682283805558" duration="664000" />
       <workItem from="1682369606039" duration="26000" />
-      <workItem from="1682442041529" duration="4401000" />
+      <workItem from="1682442041529" duration="5041000" />
     </task>
     <task id="LOCAL-00001" summary="1">
       <created>1680781235339</created>
@@ -134,7 +131,14 @@
       <option name="project" value="LOCAL" />
       <updated>1682284305038</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="ready2">
+      <created>1682446528184</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1682446528184</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -170,6 +174,7 @@
     <MESSAGE value="6" />
     <MESSAGE value="7" />
     <MESSAGE value="ready" />
-    <option name="LAST_COMMIT_MESSAGE" value="ready" />
+    <MESSAGE value="ready2" />
+    <option name="LAST_COMMIT_MESSAGE" value="ready2" />
   </component>
 </project>
